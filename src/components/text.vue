@@ -2,6 +2,7 @@
   <div class="box">
     <div class="aaa" @click="getData">{{msg}}</div>
     <div class="bbb" @click="setD">{{aaa}}</div>
+    <div class="btn" @click="ceshiClick">测试按钮</div>
     <mt-progress :value="progress">
       <div slot="start">0%</div>
       <div slot="end">100%</div>
@@ -10,15 +11,23 @@
     <div class="page-picker-wrapper">
       <mt-picker :slots="numberSlot" @change="onNumberChange" :visible-item-count="3"></mt-picker>
     </div>
+
+    <loading></loading>
+    <popup></popup>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
   import httpServer from '../assets/js/api'
+  import loading from '../components/base/loading/loading.vue'
+  import popup from '../components/base/popup/popup.vue'
 export default {
   name: 'box',
-  components: {},
+  components: {
+    loading,
+    popup
+  },
   data () {
     return {
       msg: '测试测试测试',
@@ -47,6 +56,9 @@ export default {
 
   },
   methods: {
+    ceshiClick (){
+
+    },
     onNumberChange(picker, values) {
 //      console.log(picker)
 //      console.log(values)
@@ -59,6 +71,7 @@ export default {
     }
   },
   mounted() {
+
     this.$nextTick(() => {
       let step = 0;
       setInterval(() => {
@@ -68,8 +81,16 @@ export default {
         }
       }, 1000);
     });
-    httpServer.post("xxx",{a:1});
-    console.log(httpServer.post, "httpServer")
+    let params = {
+      router:"homeService.login",
+      account:"root",
+      password:111111
+    }
+
+    httpServer.post("/platform-aos/http/do.jhtml",params)
+      .then(function (data) {
+        console.log(data)
+      });
   }
 }
 </script>
@@ -79,7 +100,15 @@ export default {
 
   $fontSize: 20px;
 
-
+  .btn{
+    background-color: #999;
+    font-size: 30px;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+  }
 
   .scroll{
     height: 200px;
