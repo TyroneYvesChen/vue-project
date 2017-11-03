@@ -2,7 +2,7 @@
   <div class="box">
     <div class="aaa" @click="getData">{{msg}}</div>
     <div class="bbb" @click="setD">{{aaa}}</div>
-    <div class="btn" @click="ceshiClick">测试按钮</div>
+    <div class="btn" @click="ceshiPop">模态框测试按钮</div>
     <mt-progress :value="progress">
       <div slot="start">0%</div>
       <div slot="end">100%</div>
@@ -13,7 +13,7 @@
     </div>
 
     <loading></loading>
-    <popup></popup>
+    <van-popup v-model="show1">内容</van-popup>
   </div>
 </template>
 
@@ -21,15 +21,15 @@
   import {mapGetters} from 'vuex'
   import httpServer from '../assets/js/api'
   import loading from '../components/base/loading/loading.vue'
-  import popup from '../components/base/popup/popup.vue'
+  import popup from '../components/base/popup/index.js'
 export default {
   name: 'box',
   components: {
-    loading,
-    popup
+    loading
   },
   data () {
     return {
+      show1: false,
       msg: '测试测试测试',
       aaa: "hoo~",
       progress: 5,
@@ -56,8 +56,8 @@ export default {
 
   },
   methods: {
-    ceshiClick (){
-
+    ceshiPop (){
+      this.show1 = true
     },
     onNumberChange(picker, values) {
 //      console.log(picker)
@@ -87,10 +87,12 @@ export default {
       password:111111
     }
 
-    httpServer.post("/platform-aos/http/do.jhtml",params)
+    this.$http.defaults.headers.common['menmenda'] = "menmenda";
+    this.$http.post("/platform-aos/http/do.jhtml",params)
       .then(function (data) {
-        console.log(data)
+        console.log(data,"$http")
       });
+
   }
 }
 </script>

@@ -2,13 +2,16 @@
   <div id="app">
     <!--<img src="./assets/logo.png">-->
     <router-view></router-view>
+    <axios-loading></axios-loading>
   </div>
 </template>
 
 <script>
+  import axiosLoading from './components/common/axiosLoading/axiosLoading.vue'
+
 export default {
   name: 'app',
-  components: {}
+  components: {axiosLoading}
 }
 </script>
 

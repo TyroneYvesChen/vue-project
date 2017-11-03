@@ -1,3 +1,11 @@
 <div class="popup-wrap">
-
+  <van-popup
+    v-model="isShow"
+    :overlay="overlay"
+    :lockOnScroll="lockOnScroll"
+    :position="position"
+    :closeOnClickOverlay="closeOnClickOverlay"
+    :preventScroll="preventScroll">
+    <slot></slot>
+  </van-popup>
 </div>

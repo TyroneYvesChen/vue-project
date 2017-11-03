@@ -6,11 +6,12 @@ import router from './router'
 import store from './store/store'
 import fastclick from 'fastclick'
 import Mint from './mintUi';
-// import axios from 'axios'
+import httpServer from './assets/js/api'
 import * as filters from './assets/js/filters';
 
 
-// Vue.prototype.$http = axios
+Vue.prototype.$http = httpServer
+
 fastclick.attach(document.body)
 Vue.config.productionTip = true
 
