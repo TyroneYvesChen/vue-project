@@ -18,7 +18,6 @@ export default {
   },
   watch:{
     httpCounts (val){
-      console.log(val,"sss")
       this.show = val > 0
     }
   },

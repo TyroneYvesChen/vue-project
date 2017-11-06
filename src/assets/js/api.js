@@ -52,9 +52,7 @@ httpServer.interceptors.request.use(function (config) {
 // 添加响应拦截器
 httpServer.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  setTimeout(function () {
-    store.dispatch("httpCounts",false)
-  }, 5000)
+  store.dispatch("httpCounts",false)
   return response;
 }, function (error) {
   // 返回状态码不为200时候的错误处理
