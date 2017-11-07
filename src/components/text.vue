@@ -84,18 +84,8 @@ export default {
       let paginationData = data
       console.log(paginationData, "分页返回参数")
       const _this = this
+      _this.currentPage = paginationData.toPage
 
-      let params = {
-        router:"homeService.login",
-        account:"root",
-        password:111111
-      }
-
-      this.$http.defaults.headers.common['menmenda'] = "menmenda";
-      this.$http.post("/platform-aos/http/do.jhtml",params)
-        .then(function (data) {
-          _this.currentPage = paginationData.toPage
-        });
     },
     paginationBtn (){
       this.pages ++
@@ -117,7 +107,17 @@ export default {
   },
   mounted() {
 
+    let params = {
+      router:"homeService.login",
+      account:"root",
+      password:111111
+    }
 
+    this.$http.defaults.headers.common['menmenda'] = "menmenda";
+    this.$http.post("/platform-aos/http/do.jhtml",params)
+      .then(function (data) {
+        console.log(data)
+      });
 
     this.$nextTick(() => {
       let step = 0;

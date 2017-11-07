@@ -34,7 +34,6 @@ export default {
     },
     currentPage: {
       handler: function (newVal, oldVal) {
-        console.log(newVal, "newVal")
         this.showPage = []
         let data = this.pages,
           len = data > 5 ? 5 : data
