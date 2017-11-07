@@ -55,8 +55,8 @@ export default {
 
 
         //省略号逻辑
-        this.ellipsisLeft = (newVal - 2 > 1) && (data > 5) ? true : false
-        this.ellipsisRight = (newVal + 2 < data) && (data > 5) ? true : false
+        this.ellipsisLeft = (newVal - 2 > 1) && (data > 5)
+        this.ellipsisRight = (newVal + 2 < data) && (data > 5)
 
         // const fill = (len, ary = [], step = 0) => step < len ? (ary.push(++step) && fill(len, ary, step)) : ary
         // fill(100)
