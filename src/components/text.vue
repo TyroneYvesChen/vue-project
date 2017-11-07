@@ -81,8 +81,8 @@ export default {
   },
   methods: {
     paginationClick (data){
-      console.log(data, "data")
       let paginationData = data
+      console.log(paginationData, "分页返回参数")
       const _this = this
 
       let params = {
@@ -94,7 +94,6 @@ export default {
       this.$http.defaults.headers.common['menmenda'] = "menmenda";
       this.$http.post("/platform-aos/http/do.jhtml",params)
         .then(function (data) {
-          console.log(data,"$http")
           _this.currentPage = paginationData.toPage
         });
     },
@@ -117,7 +116,6 @@ export default {
     }
   },
   mounted() {
-    console.log(json)
 
 
 
