@@ -12,7 +12,7 @@ const baseURL = ""
 let CancelToken = axios.CancelToken,
     source = CancelToken.source()
 
-console.log(store)
+
 let httpServer = axios.create({
   baseURL: baseURL,
   timeout: 5000,

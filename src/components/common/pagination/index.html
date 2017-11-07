@@ -1,0 +1,17 @@
+<ul class="pagination">
+  <li class="pagination-btn"
+      @click="toPage(currentPage - 1)">< 上一页</li>
+
+  <li :class="{'pagination-pages': item !== currentPage,'current': item === currentPage}"
+      v-for="(item, index) in pages"
+      @click="toPage(item)">{{ item }}</li>
+
+  <li class="pagination-btn"
+      @click="toPage(currentPage + 1)">下一页 ></li>
+  <li class="pagination-all">{{ currentPage }} / {{ pages }}</li>
+  <li><input type="text"
+             v-model="pageNum"
+             @keyup.enter="toPage(pageNum)"/></li>
+  <li class="pagination-btn"
+      @click="toPage(pageNum)">跳转 {{ pageNum }}</li>
+</ul>

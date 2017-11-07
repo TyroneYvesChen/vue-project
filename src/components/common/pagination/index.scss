@@ -1,0 +1,46 @@
+.pagination{
+  display: inline-block;
+  li{
+    display: inline-block;
+    height: 100%;
+    margin: 0 5px;
+    color: #169FE6;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all .3s;
+
+    &.pagination-btn,
+    &.pagination-pages{
+      padding: 8px 10px;
+      border: 1px #ccc solid;
+
+      &:hover{
+        background-color: #169FE6;
+        color: white;
+      }
+    }
+
+    &.current{
+      padding: 8px 10px;
+      border: 1px #ccc solid;
+      background-color: #169FE6;
+      color: white;
+      cursor: inherit;
+    }
+
+
+    &.pagination-all{
+      font-size: 16px;
+    }
+
+    input{
+      border: 1px #ccc solid;
+      height: 34px;
+      border-radius: 5px;
+      width: 50px;
+      text-align: center;
+    }
+  }
+}
