@@ -1,10 +1,12 @@
 import axios from 'axios'
-import store from '../../store/store'
+import store from '../../../store/store'
+import storage from '../storage'
+import * as types from './config'
+
 
 var qs = require('qs')
 
 //超时拦截/报错 根据返回值判断/请求失败了 是否再次请求/超过5次 自动断掉
-
 
 
 const baseURL = ""
@@ -15,7 +17,7 @@ let CancelToken = axios.CancelToken,
 
 let httpServer = axios.create({
   baseURL: baseURL,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     // 'Content-Type': 'application/form-data'
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -35,10 +37,21 @@ let httpServer = axios.create({
 httpServer.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   //需要在头部加一对键值{router:xxx}与对应router键值相同
-  config.headers.router = config.data.router
 
-  config.method  === 'post' && (config.data = qs.stringify(config.data))
+  let params = config.data
 
+  config.headers.router = params.router
+
+  //判断session中是否存在token，id等，并加在对应位置。
+  let token = storage.session.get(types.TOKEN_KEY),
+    id = storage.session.get(types.ONLY_ID)
+
+  token && (params[types.TOKEN_KEY] = token)
+  id && (params[types.ONLY_ID] = id)
+
+  config.method  === 'post' && (params = qs.stringify(params))
+
+  config.data = params
   //记录请求数
   store.dispatch("httpCounts",true)
 
@@ -52,7 +65,18 @@ httpServer.interceptors.request.use(function (config) {
 // 添加响应拦截器
 httpServer.interceptors.response.use(function (response) {
   // 对响应数据做点什么
+
+  let data = JSON.parse(response.data),
+    token = data[types.TOKEN_KEY],
+    id = data[types.ONLY_ID]
+
+  token && storage.session.set(types.TOKEN_KEY, token)
+  id && storage.session.set(types.ONLY_ID, id)
+
+  response.data = data
+
   store.dispatch("httpCounts",false)
+
   return response;
 }, function (error) {
   // 返回状态码不为200时候的错误处理

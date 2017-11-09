@@ -36,9 +36,10 @@
 
 
   /**js文件引入**/
-  import httpServer from '../assets/js/api'
+  import httpServer from '../assets/js/api/api'
   import popup from '../components/base/popup/index.js'
   import json from './ceshi'
+  import storage from '../assets/js/storage'
 
 
 export default {
@@ -116,7 +117,7 @@ export default {
     this.$http.defaults.headers.common['menmenda'] = "menmenda";
     this.$http.post("/platform-aos/http/do.jhtml",params)
       .then(function (data) {
-        console.log(data)
+        console.log(data, "sdasdasdasd")
       });
 
     this.$nextTick(() => {
@@ -129,6 +130,9 @@ export default {
       }, 1000);
     });
 
+
+
+    console.log(storage.session.get("wc"))
 
   }
 }

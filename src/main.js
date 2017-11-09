@@ -6,7 +6,7 @@ import router from './router'
 import store from './store/store'
 import fastclick from 'fastclick'
 import Mint from './mintUi';
-import httpServer from './assets/js/api'
+import httpServer from './assets/js/api/api'
 import * as filters from './assets/js/filters';
 
 
