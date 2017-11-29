@@ -38,9 +38,9 @@ httpServer.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   //需要在头部加一对键值{router:xxx}与对应router键值相同
 
-  let params = config.data
-
-  config.headers.router = params.router
+  let params = config.data || config.params
+  console.log(config)
+  params && (config.headers.router = params.router)
 
   //判断session中是否存在token，id等，并加在对应位置。
   let token = storage.session.get(types.TOKEN_KEY),

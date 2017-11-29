@@ -1,5 +1,7 @@
 <ul class="pagination">
   <li class="pagination-btn"
+      @click="toPage(1)">首页</li>
+  <li class="pagination-btn"
       @click="toPage(currentPage - 1)">< 上一页</li>
 
   <li v-if="ellipsisLeft">...</li>
@@ -12,6 +14,8 @@
 
   <li class="pagination-btn"
       @click="toPage(currentPage + 1)">下一页 ></li>
+  <li class="pagination-btn"
+      @click="toPage(pages)">尾页</li>
   <li class="pagination-all">{{ currentPage }} / {{ pages }}</li>
   <li><input type="text"
              v-model="pageNum"

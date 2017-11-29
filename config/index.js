@@ -33,6 +33,12 @@ module.exports = {
         pathRewrite: {
         }
       },
+      '/node': {
+        target: 'http://127.0.0.1:3000',
+        pathRewrite: {
+          '/node': ''
+        }
+      },
       // '/platform-aos': {
       //   target: 'http://192.168.50.50:8080',
       //   pathRewrite: {

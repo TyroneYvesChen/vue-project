@@ -28,6 +28,7 @@
 <script>
   /**vue生态引入**/
   import {mapGetters} from 'vuex'
+  import Cookie from 'js-cookie'
 
 
   /**vue组件引入**/
@@ -61,7 +62,7 @@ export default {
         className: 'slot1'
       }],
       currentPage: 1,
-      pages: 3,
+      pages: 2,
       pageSize: 10,
       paginationList: json.rows
     }
@@ -107,18 +108,17 @@ export default {
     }
   },
   mounted() {
-
     let params = {
       router:"homeService.login",
       account:"root",
       password:111111
     }
 
-    this.$http.defaults.headers.common['menmenda'] = "menmenda";
-    this.$http.post("/platform-aos/http/do.jhtml",params)
-      .then(function (data) {
-        console.log(data, "sdasdasdasd")
-      });
+//    this.$http.defaults.headers.common['menmenda'] = "menmenda";
+//    this.$http.post("/platform-aos/http/do.jhtml",params)
+//      .then(function (data) {
+//        console.log(data, "sdasdasdasd")
+//      });
 
     this.$nextTick(() => {
       let step = 0;
@@ -129,10 +129,9 @@ export default {
         }
       }, 1000);
     });
-
-
-
-    console.log(storage.session.get("wc"))
+    this.$http.get("/node/123", {params: {data: 2}}).then(function (data) {
+        console.log(data, "node接口测试")
+      });
 
   }
 }
