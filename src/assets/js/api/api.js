@@ -38,26 +38,40 @@ httpServer.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   //需要在头部加一对键值{router:xxx}与对应router键值相同
 
-  let params = config.data || config.params
+  let params = config.data || config.params,  //传参
+    router = params.router,                   //需要在响应头header加router字段及相应内容
+    method = config.method                   //请求方式：post || get
+
+  let methodObj = {
+    "post": () => {
+      params = qs.stringify(params)
+      config.data = params
+    },
+    "get": () => {
+      config.params = params
+    }
+  }
+
   console.log(config)
-  params && (config.headers.router = params.router)
+
+  params && router && (config.headers.router = router)
 
   //判断session中是否存在token，id等，并加在对应位置。
-  let token = storage.session.get(types.TOKEN_KEY),
-    id = storage.session.get(types.ONLY_ID)
+  Object.keys(types).forEach((key) => {
+    let getKey = storage.session.get(types[key])
+    getKey && (params[types[key]] = getKey)
+  });
 
-  token && (params[types.TOKEN_KEY] = token)
-  id && (params[types.ONLY_ID] = id)
+  methodObj[method]()
 
-  config.method  === 'post' && (params = qs.stringify(params))
 
-  config.data = params
-  //记录请求数
+  //记录请求数 ++
   store.dispatch("httpCounts",true)
 
   return config;
 }, function (error) {
-  // 对请求错误做些什么
+
+  //记录请求数 --
   store.dispatch("httpCounts",false)
   return Promise.reject(error);
 });
@@ -66,15 +80,17 @@ httpServer.interceptors.request.use(function (config) {
 httpServer.interceptors.response.use(function (response) {
   // 对响应数据做点什么
 
-  let data = JSON.parse(response.data),
-    token = data[types.TOKEN_KEY],
-    id = data[types.ONLY_ID]
+  let data = JSON.parse(response.data)
 
-  token && storage.session.set(types.TOKEN_KEY, token)
-  id && storage.session.set(types.ONLY_ID, id)
+  //判断data中是否存在对应key，并加存入session。
+  Object.keys(types).forEach((key) => {
+    let dataKey = data[types[key]]
+    dataKey && storage.session.set(types[key], dataKey)
+  });
 
   response.data = data
 
+  //记录请求数 --
   store.dispatch("httpCounts",false)
 
   return response;
@@ -130,6 +146,8 @@ httpServer.interceptors.response.use(function (response) {
       default:
     }
   }
+
+  //记录请求数 --
   store.dispatch("httpCounts",false)
   return Promise.reject(error);
 });

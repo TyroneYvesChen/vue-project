@@ -114,11 +114,11 @@ export default {
       password:111111
     }
 
-//    this.$http.defaults.headers.common['menmenda'] = "menmenda";
-//    this.$http.post("/platform-aos/http/do.jhtml",params)
-//      .then(function (data) {
-//        console.log(data, "sdasdasdasd")
-//      });
+    this.$http.defaults.headers.common['menmenda'] = "menmenda";
+    this.$http.post("/platform-aos/http/do.jhtml",params)
+      .then(function (data) {
+        console.log(data, "sdasdasdasd")
+      });
 
     this.$nextTick(() => {
       let step = 0;
