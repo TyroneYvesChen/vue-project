@@ -4,7 +4,7 @@ import storage from '../storage'
 import * as types from './config'
 
 
-var qs = require('qs')
+let qs = require('qs')
 
 //超时拦截/报错 根据返回值判断/请求失败了 是否再次请求/超过5次 自动断掉
 

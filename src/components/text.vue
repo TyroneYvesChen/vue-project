@@ -115,10 +115,16 @@ export default {
     }
 
     this.$http.defaults.headers.common['menmenda'] = "menmenda";
-    this.$http.post("/platform-aos/http/do.jhtml",params)
-      .then(function (data) {
-        console.log(data, "sdasdasdasd")
+//    this.$http.post("/platform-aos/http/do.jhtml",params)
+//      .then(function (data) {
+//        console.log(data, "sdasdasdasd")
+//      });
+
+    this.$http.post("/node/wocao/platform-aos/http/do.jhtml",params)
+      .then(data => {
+        console.log(data, "测试node代理")
       });
+
 
     this.$nextTick(() => {
       let step = 0;
@@ -132,6 +138,16 @@ export default {
     this.$http.get("/node/123", {params: {data: 2}}).then(function (data) {
         console.log(data, "node接口测试")
       });
+
+
+
+
+    let arr = [1,2,3,4,5,6]
+
+    arr.reduce(function (list, cur, index, xxx) {
+//      console.log(arguments)
+      return list.push(cur + 10),list
+    }, [])
 
   }
 }
